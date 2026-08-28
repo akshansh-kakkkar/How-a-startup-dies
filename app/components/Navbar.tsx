@@ -1,6 +1,6 @@
 "use client"
 import { Inter, JetBrains_Mono } from "next/font/google"
-import { useState } from "react"
+import { useGameStore } from "../store/GameStore"
 
 const inter = Inter({
     subsets: ['latin']
@@ -9,12 +9,7 @@ const jetBrainsMono = JetBrains_Mono({
     subsets: ['latin']
 })
 export default function Navbar() {
-    const [gameState, setGameState] = useState({
-        cash: 2400000,
-        employee: 3,
-        morale: 82,
-        runway: 18,
-    })
+    const gameState = useGameStore((state)=>state.gameState)
     return (
         <div className="flex items-center justify-between px-24">
             <div className={`${inter.className} text-2xl font-bold text-[#B3C5FF] uppercase`}>
@@ -31,7 +26,7 @@ export default function Navbar() {
                 </div>
                 <div className={`flex w-full items-center text-sm gap-4 font-light border-r border-[#E5E2E3] px-4`}>
                     <p className={`${inter.className} text-[#E5E2E3]`}>EMPLOYEES</p>
-                    <p className={`${jetBrainsMono.className} text-[#00E639]`}>{gameState.employee}</p>
+                    <p className={`${jetBrainsMono.className} text-[#00E639]`}>{gameState.employees}</p>
                 </div>
                 <div className={`flex w-full items-center text-sm gap-4 font-light border-r border-[#E5E2E3] px-4`}>
                     <p className={`${inter.className} text-[#E5E2E3]`}>Morale</p>
