@@ -1,10 +1,10 @@
 'use client'
 import { Inter, JetBrains_Mono } from "next/font/google";
-import { scenarios } from "../game/scenario"
+import { scenarios } from '../game/scenario';
 import { useState } from "react";
 import { useGameStore } from '../store/GameStore';
 import DecisionMade from "./DecisionMade";
-import { stat } from "fs";
+import getNextScenario from "../game/engine";
 const inter = Inter({
     subsets: ['latin']
 })
@@ -15,21 +15,25 @@ export default function Choices() {
     const [selectedChoice, setSelectedChoice] = useState<string | null>(null);
     const currentScenario = useGameStore((state) => state.currentScenario);
     const nextScenario = useGameStore((state) => state.nextScenario);
-    const scenario = scenarios[currentScenario]
+    const scenario = scenarios[currentScenario];
+    const gameState = useGameStore((state) => state.gameState);
     const applyEffects = useGameStore((state) => state.applyEffects);
-    const selectedChoiceData = scenario.choices.find(
-        (choice) => choice.id === selectedChoice
-    )
-    if(!scenario) {
-        return(
+
+
+    if (!scenario) {
+        return (
             <div>You have reached the end of chapter</div>
         )
     }
+    const selectedChoiceData = scenario.choices.find(
+        (choice) => choice.id === selectedChoice
+    )
+
 
     return (
         <>
-            <div className="mt-12 mx-24 w-full flex gap-12 items-center text-center justify-center max-w-3xl">
-                <div className=" w-full flex flex-col justify-center gap-5">
+            <div className="mt-12 mx-24 flex gap-12 items-center text-center justify-center">
+                <div className="w-full flex flex-col -center gap-5">
                     {scenario.choices.map((choice) => (
                         <button
                             disabled={selectedChoice !== null}
@@ -61,7 +65,13 @@ export default function Choices() {
             </div>
             {
                 selectedChoiceData && (
-                    <DecisionMade choice={selectedChoiceData} onNext={() => { setSelectedChoice(null); nextScenario() }} />
+                    <DecisionMade choice={selectedChoiceData} onNext={() => {
+                        const next = getNextScenario(currentScenario, gameState);
+                        setSelectedChoice(null);
+                        if (next !== null) {
+                            nextScenario(next);
+                        }
+                    }} />
                 )
             }
         </>

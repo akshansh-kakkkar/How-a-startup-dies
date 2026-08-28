@@ -29,7 +29,7 @@ export default function Navbar() {
                 </div>
                 <div className={`flex w-full items-center text-sm gap-4 font-light border-r border-[#E5E2E3] px-4`}>
                     <p className={`${inter.className} text-[#E5E2E3]`}>EMPLOYEES</p>
-                    <p className={`${jetBrainsMono.className} text-[#00E639]`}>{gameState.employees}</p>
+                    <p className={`${jetBrainsMono.className} text-[#00E639]`}>{gameState.employee}</p>
                 </div>
                 <div className={`flex w-full items-center text-sm gap-4 font-light border-r border-[#E5E2E3] px-4`}>
                     <p className={`${inter.className} text-[#E5E2E3]`}>Morale</p>

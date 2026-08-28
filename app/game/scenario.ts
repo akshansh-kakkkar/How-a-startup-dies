@@ -1,12 +1,11 @@
-import { m } from "framer-motion";
-import { title } from "process";
-
+import { GameState } from "./types"
 export const scenarios = [
     {
         id : "first-descision",
         day : 1,
         title : "The First Decision",
         description : "You have $2.4m in the bank. Your team is small, your product barely exists, and investors want profit.",
+        condition : (state : GameState)=>true,
         choices : [
             {
                 id : "hire",
@@ -48,6 +47,7 @@ export const scenarios = [
         day : 30,
         title : "The Team Is Growing",
         description : "Your team has grown quickly. Everyone is excited but your monthly expenses are climbing.",
+        condition : (state : GameState)=> true,
         choices : [
             {
                 id : "office",
@@ -63,7 +63,7 @@ export const scenarios = [
             {
                 id : "hire-more",
                 title : "Hire even more people",
-                descripition : "More engineers means we can build faster.",
+                description : "More engineers means we can build faster.",
                 effects : {
                     cash : -200000,
                     employee : 4,

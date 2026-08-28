@@ -10,7 +10,7 @@ export default function ProgressIndicator(){
     const currentScenario = useGameStore((state)=>state.currentScenario);
     return(
         <p className={`${jetBrainsMono.className} text-[#B3C5FF] text-xs uppercase tracking-widest w-full flex justify-center items-center mt-4 `}>
-           Scenario {currentScenario + 1}/ {scenarios.length}
+           Scenario {currentScenario + 1}/{scenarios.length}
         </p>
     )
 }
