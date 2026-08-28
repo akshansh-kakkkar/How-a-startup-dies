@@ -1,6 +1,7 @@
 "use client"
 import { Inter, JetBrains_Mono } from "next/font/google"
 import { useGameStore } from "../store/GameStore"
+import { scenarios } from "../game/scenario"
 
 const inter = Inter({
     subsets: ['latin']
@@ -9,7 +10,9 @@ const jetBrainsMono = JetBrains_Mono({
     subsets: ['latin']
 })
 export default function Navbar() {
-    const gameState = useGameStore((state)=>state.gameState)
+    const gameState = useGameStore((state) => state.gameState)
+    const currentScenario = useGameStore((state) => state.currentScenario);
+    const day = scenarios[currentScenario].day;
     return (
         <div className="flex items-center justify-between px-24">
             <div className={`${inter.className} text-2xl font-bold text-[#B3C5FF] uppercase`}>
@@ -17,7 +20,7 @@ export default function Navbar() {
             </div>
             <div className="flex gap-4 items-baseline">
                 <h1 className={`${inter.className} text-[#E5E2E3] text-2xl font-bold`}>Venture 01</h1>
-                <p className={`${jetBrainsMono.className} text-xs text-[#B9CCB2]`}>DAY 01</p>
+                <p className={`${jetBrainsMono.className} text-xs text-[#B9CCB2]`}>DAY {day}</p>
             </div>
             <div className="flex gap-4">
                 <div className={`flex w-full items-center text-sm gap-4 font-light border-r border-[#E5E2E3] px-4`}>

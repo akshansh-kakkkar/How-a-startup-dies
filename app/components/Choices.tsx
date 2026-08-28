@@ -4,6 +4,7 @@ import { scenarios } from "../game/scenario"
 import { useState } from "react";
 import { useGameStore } from '../store/GameStore';
 import DecisionMade from "./DecisionMade";
+import { stat } from "fs";
 const inter = Inter({
     subsets: ['latin']
 })
@@ -11,17 +12,24 @@ const jetBrainsMono = JetBrains_Mono({
     subsets: ['latin']
 })
 export default function Choices() {
-    const scenario = scenarios[0];
     const [selectedChoice, setSelectedChoice] = useState<string | null>(null);
-    const GameState = useGameStore((state) => state.gameState);
+    const currentScenario = useGameStore((state) => state.currentScenario);
+    const nextScenario = useGameStore((state) => state.nextScenario);
+    const scenario = scenarios[currentScenario]
     const applyEffects = useGameStore((state) => state.applyEffects);
     const selectedChoiceData = scenario.choices.find(
         (choice) => choice.id === selectedChoice
     )
+    if(!scenario) {
+        return(
+            <div>You have reached the end of chapter</div>
+        )
+    }
+
     return (
         <>
             <div className="mt-12 mx-24 w-full flex gap-12 items-center text-center justify-center max-w-3xl">
-                <div className=" w-full flex flex-col gap-5">
+                <div className=" w-full flex flex-col justify-center gap-5">
                     {scenario.choices.map((choice) => (
                         <button
                             disabled={selectedChoice !== null}
@@ -53,7 +61,7 @@ export default function Choices() {
             </div>
             {
                 selectedChoiceData && (
-                    <DecisionMade choice={selectedChoiceData} onNext={() => setSelectedChoice(null)} />
+                    <DecisionMade choice={selectedChoiceData} onNext={() => { setSelectedChoice(null); nextScenario() }} />
                 )
             }
         </>

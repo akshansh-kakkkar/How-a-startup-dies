@@ -8,7 +8,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`h-full antialiased`}
     >
-      <body className="min-h-screen bg-[#0A0A0B] flex flex-col mx-auto w-full px-6 py-8">
+      <body className="h-screen bg-[#0A0A0B] flex flex-col mx-auto w-full px-6 py-8">
         <Navbar />
         {children}
         </body>
