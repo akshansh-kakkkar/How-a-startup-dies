@@ -37,7 +37,7 @@ export default function Choices() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -15 }}
                     transition={{ duration: 0.35 }}
-                    className="mt-12 mx-24 flex gap-12 items-center text-center justify-center">
+                    className="mt-12 lg:mx-24 flex gap-12 items-center text-center justify-center">
                     <div className="w-full flex flex-col -center gap-5">
                         <AnimatePresence>
                             {scenario.choices.map((choice, index) => (
@@ -56,7 +56,8 @@ export default function Choices() {
                                         if (selectedChoice) return;
                                         setSelectedChoice(choice.id);
                                         applyEffects(choice.effects)
-                                    }} className={`${inter.className} rounded-xl  border  cursor-pointer disabled:cursor-not-allowed  hover:border-[#B3C5FF] p-6 text-left transition-all flex justify-between items-center text-center ${selectedChoice === choice.id ? "border-[#B3C5FF] hover:border-[#B3C5FF] bg-[#B3C5FF]/5" : "border-[#B9CCB2] hover:border-[#92ca7e]"}`}>
+                                    }} 
+                                    className={`${inter.className} rounded-xl  border  cursor-pointer disabled:cursor-not-allowed  hover:border-[#B3C5FF] p-6 text-left transition-all flex justify-between items-center flex-col gap-2 md:flex-row md:gap-0 ${selectedChoice === choice.id ? "border-[#B3C5FF] hover:border-[#B3C5FF] bg-[#B3C5FF]/5" : "border-[#B9CCB2] hover:border-[#92ca7e]"}`}>
                                     <div>
                                         <h3 className={`text-xl font-bold text-[#FFB4AB] capitalize`}>
                                             {choice.title}

@@ -43,7 +43,7 @@ export default function DecisionMade({
                     <p className={`text-xs uppercase text-[#E5E2E3] ${jetBrainsMono.className} font-medium`}>Decision made</p>
                     <h2 className={`mt-4 text-4xl font-bold ${inter.className} text-[#00E639]`}>{choice.title}</h2>
                     <p className={`mt-4 font-light text-[#B3C5FF] ${inter.className} text-sm`}>{choice.description}</p>
-                    <div className={`mt-4 border-[#E5E2E3] border-t w-150`} />
+                    <div className={`mt-4 border-[#E5E2E3] border-t w-70 md:w-150`} />
                     <motion.div
                         initial={{ opacity: 0, x: -15 }}
                         animate={{ opacity: 1, x: 0 }}
