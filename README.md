@@ -1,4 +1,6 @@
 # How a Startup Dies
+<img width="1905" height="958" alt="image" src="https://github.com/user-attachments/assets/debf50e0-6ce6-454d-a52c-462106cc3b07" />
+
 ## Description
 This is a funny troll web based game where you are given choices and you need to select one choice but the joke about this is that all the choices are wrong and take you to a same conclusion which is do whatever you want to but eventually your startup will die.
 
