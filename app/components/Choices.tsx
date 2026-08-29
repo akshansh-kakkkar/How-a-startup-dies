@@ -4,7 +4,7 @@ import { scenarios } from '../game/scenario';
 import { useState } from "react";
 import { useGameStore } from '../store/GameStore';
 import DecisionMade from "./DecisionMade";
-import getNextScenario from "../game/engine";
+import GameOver from "./GameOver";
 const inter = Inter({
     subsets: ['latin']
 })
@@ -18,12 +18,9 @@ export default function Choices() {
     const scenario = scenarios[currentScenario];
     const gameState = useGameStore((state) => state.gameState);
     const applyEffects = useGameStore((state) => state.applyEffects);
-
-
+    const restartGame = useGameStore((state)=>state.restartGame)
     if (!scenario) {
-        return (
-            <div>You have reached the end of chapter</div>
-        )
+        return <GameOver onRestart={restartGame} />
     }
     const selectedChoiceData = scenario.choices.find(
         (choice) => choice.id === selectedChoice
@@ -49,7 +46,7 @@ export default function Choices() {
                                 </h3>
                                 <p className={`${jetBrainsMono.className} mt-2 text-sm leading-6 text-[#B9CCB2]`}>{choice.description}</p>
                             </div>
-                            <div className={`text-xs flex gap-6 uppercase ${jetBrainsMono.className}`}>
+                            <div className={`text-xs hidden flex gap-6 uppercase ${jetBrainsMono.className}`}>
                                 <div className="border-r border-[#E5E2E3] pr-5 flex flex-col gap-2 ">
                                     <p className="text-[#FFB4AB]">Burn ${choice.effects.cash}</p>
                                     <p className="text-[#B3C5FF]">Employees {choice.effects.employee}</p>
@@ -66,11 +63,12 @@ export default function Choices() {
             {
                 selectedChoiceData && (
                     <DecisionMade choice={selectedChoiceData} onNext={() => {
-                        const next = getNextScenario(currentScenario, gameState);
                         setSelectedChoice(null);
-                        if (next !== null) {
-                            nextScenario(next);
+                        if (currentScenario === scenarios.length - 1) {
+                            nextScenario();
+                            return;
                         }
+                        nextScenario();
                     }} />
                 )
             }

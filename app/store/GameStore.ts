@@ -6,7 +6,8 @@ type GameStore = {
     gameState : GameState;
     currentScenario : number;
     applyEffects : (effects : Partial<GameState>) => void;
-    nextScenario : (scenario: number)=>void;
+    nextScenario : ()=>void;
+    restartGame : ()=> void;
 }
 export const useGameStore = create<GameStore>((set)=>({
     gameState : {
@@ -25,10 +26,21 @@ export const useGameStore = create<GameStore>((set)=>({
             runway : state.gameState.runway + (effects.runway ?? 0),
         }
     })),
-    nextScenario : (scenario)=>{
-        set({
-            currentScenario : scenario
-        })
+    nextScenario : ()=>{
+        set((state)=>({
+            currentScenario : state.currentScenario + 1,
+        }))
     },
-    getCurrentScenarios : ()=>(state : GameStore)=> scenarios[state.currentScenario]
+    getCurrentScenarios : ()=>(state : GameStore)=> scenarios[state.currentScenario],
+    restartGame : ()=>{
+        set({
+            gameState :{
+                cash : 2_400_000,
+                employee : 3,
+                morale : 82,
+                runway : 18
+            },
+            currentScenario : 0
+        });
+    }
 }))

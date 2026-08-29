@@ -12,7 +12,7 @@ const jetBrainsMono = JetBrains_Mono({
 export default function Navbar() {
     const gameState = useGameStore((state) => state.gameState)
     const currentScenario = useGameStore((state) => state.currentScenario);
-    const day = scenarios[currentScenario].day;
+    const day = scenarios[currentScenario]?.day;
     return (
         <div className="flex items-center justify-between px-24">
             <div className={`${inter.className} text-2xl font-bold text-[#B3C5FF] uppercase`}>

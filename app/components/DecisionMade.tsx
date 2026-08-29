@@ -33,10 +33,10 @@ export default function DecisionMade({
             <div className={`mt-4 border-[#E5E2E3] border-t w-150`} />
             <div className={`flex  mt-4  uppercase text-sm ${jetBrainsMono.className} items-center text-center ${choice.effects.cash > 0  ? "text-[#00E639]" : "text-[#FFB4AB]"} `}>
              
-                <p className="w-28 text-left">Cash($)</p>
+                <p className="w-28 text-left">Cash</p>
                 <p className="w-28 text-left">
                     {choice.effects.cash > 0 ? "+" : ""}
-                    {choice.effects.cash.toLocaleString()}
+                    ${choice.effects.cash.toLocaleString()}
                 </p>
             </div>
             <div className={`flex uppercase mt-2 text-sm ${jetBrainsMono.className} items-center text-center ${choice.effects.employee > 0  ? "text-[#00E639]" : "text-[#FFB4AB]"} `}>
