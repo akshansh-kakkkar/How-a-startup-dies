@@ -1,6 +1,7 @@
 import { RotateCcw } from "lucide-react";
 import { Inter, JetBrains_Mono } from "next/font/google"
 import { motion } from 'framer-motion';
+import { useGameStore } from "../store/GameStore";
 
 const inter = Inter({
     subsets: ['latin']
@@ -13,6 +14,18 @@ type GameOverProps = {
     onRestart: () => void;
 }
 export default function GameOver({ onRestart }: GameOverProps) {
+    const gameState = useGameStore((state) => state.gameState);
+    let cause = "Nobody really knows what happened";
+
+    if (gameState.cash <= 0) {
+        cause = "You ran out of money.";
+    } else if (gameState.employee <= 0) {
+        cause = "Everyone in your team quit. Money follows my brother. money follows!";
+    } else if (gameState.morale <= 20) {
+        cause = "Nobody wanted to work here anymore."
+    } else if (gameState.runway <= 2) {
+        cause = "The runway ended. Unfortunately, there was no plane.";
+    }
     return (
         <motion.div
             initial={{ opacity: 0 }}
@@ -30,6 +43,10 @@ export default function GameOver({ onRestart }: GameOverProps) {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.9, duration: 0.5 }}
                 className={`text-md text-[#00E639] ${jetBrainsMono.className} `}>Congratulations. You successfully turned $2.4M into a very expensive learning experience.</motion.p>
+            <div className="mt-6">
+                <p className={`${jetBrainsMono.className} text-xs uppercase tracking-widest text-[#E5E2E3]`}>Cause of death</p>
+                <p className={`${inter.className} mt-2 text-lg text-[#FFB4AB]`}>{cause}</p>
+            </div>
             <div className="z-500">
                 <motion.video
                     src={'/Explosion.mp4'}
@@ -54,7 +71,7 @@ export default function GameOver({ onRestart }: GameOverProps) {
                 transition={{ delay: 1.5, duration: 0.4 }}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="absolute bottom-12 bg-[#B3C5FF] p-2 text-black rounded-full cursor-pointer hover:scale-[115%] transition-all duration-300" onClick={onRestart}>
+                className="absolute bottom-4 bg-[#B3C5FF] p-2 text-black rounded-full cursor-pointer hover:scale-[115%] transition-all duration-300" onClick={onRestart}>
                 <RotateCcw />
             </motion.button>
         </motion.div>
